@@ -1,9 +1,10 @@
-from django.contrib.admin.templatetags.admin_list import results
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
-from taxi.forms import CarForm, CarSearchForm, ManufacturerSearchForm, DriverSearchForm
+from taxi.forms import (CarSearchForm,
+                        ManufacturerSearchForm,
+                        DriverSearchForm)
 from taxi.models import Manufacturer, Car
 
 
@@ -25,13 +26,27 @@ class FormsTests(TestCase):
         self.c2 = Car.objects.create(model="M8", manufacturer=self.m2)
         self.c3 = Car.objects.create(model="mega car", manufacturer=self.m3)
 
-        self.d1 = get_user_model().objects.create(username="johndoe", first_name="John", last_name="Doe", license_number="ABC12345")
-        self.d2 = get_user_model().objects.create(username="doejohn", first_name="Doe", last_name="John", license_number="ABC12346")
-        self.d3 = get_user_model().objects.create(username="nejohndor", first_name="Nejohn", last_name="Doe", license_number="ABC12347")
-
+        self.d1 = get_user_model().objects.create(
+            username="johndoe",
+            first_name="John",
+            last_name="Doe",
+            license_number="ABC12345",
+        )
+        self.d2 = get_user_model().objects.create(
+            username="doejohn",
+            first_name="Doe",
+            last_name="John",
+            license_number="ABC12346",
+        )
+        self.d3 = get_user_model().objects.create(
+            username="nejohndor",
+            first_name="Nejohn",
+            last_name="Doe",
+            license_number="ABC12347",
+        )
 
     def test_manufacturer_overinput_search(self):
-        """ Test max length of manufacturer name search field"""
+        """Test max length of manufacturer name search field"""
 
         form_data = {"name": "1" * 56}
         form = ManufacturerSearchForm(data=form_data)
@@ -47,21 +62,26 @@ class FormsTests(TestCase):
         form = DriverSearchForm(data=form_data)
         self.assertFalse(form.is_valid())
 
-
     def test_manufacturer_search_results(self):
         search_term = "a"
-        response = self.client.get(reverse("taxi:manufacturer-list") + f"?name={search_term}")
+        response = self.client.get(
+            reverse("taxi:manufacturer-list") + f"?name={search_term}"
+        )
         results = response.context["manufacturer_list"]
         self.assertEqual(results.count(), 2)
 
     def test_car_search_results(self):
         search_term = "M8"
-        response = self.client.get(reverse("taxi:car-list") + f"?model={search_term}")
+        response = self.client.get(
+            reverse("taxi:car-list") + f"?model={search_term}"
+        )
         results = response.context["car_list"]
         self.assertEqual(results.count(), 1)
 
     def test_driver_search_results(self):
         search_term = "doe"
-        response = self.client.get(reverse("taxi:driver-list") + f"?username={search_term}")
+        response = self.client.get(
+            reverse("taxi:driver-list") + f"?username={search_term}"
+        )
         results = response.context["driver_list"]
         self.assertEqual(results.count(), 2)

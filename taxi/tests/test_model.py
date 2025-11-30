@@ -11,9 +11,7 @@ class ModelTests(TestCase):
 
     def test_driver_str(self):
         driver = Driver.objects.create(
-            username="johndoe",
-            first_name="John",
-            last_name="Doe"
+            username="johndoe", first_name="John", last_name="Doe"
         )
         self.assertEqual(str(driver), "johndoe (John Doe)")
 
@@ -26,14 +24,9 @@ class ModelTests(TestCase):
 
     def test_driver_absolute_url(self):
         driver = get_user_model().objects.create(
-            username="johndoe",
-            first_name="John",
-            last_name="Doe"
+            username="johndoe", first_name="John", last_name="Doe"
         )
-        self.assertEqual(
-            driver.get_absolute_url(),
-            f"/drivers/{driver.pk}/"
-        )
+        self.assertEqual(driver.get_absolute_url(), f"/drivers/{driver.pk}/")
 
     def test_create_driver_with_license(self):
         username = "johndoe"

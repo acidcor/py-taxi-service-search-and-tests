@@ -57,33 +57,23 @@ class DriverSearchForm(forms.Form):
         label="",
         max_length=55,
         required=False,
-        widget=forms.TextInput(
-            attrs={
-                "placeholder" : "Search by username"
-            }
-        )
+        widget=forms.TextInput(attrs={"placeholder": "Search by username"}),
     )
+
 
 class CarSearchForm(forms.Form):
     model = forms.CharField(
         label="",
         max_length=55,
         required=False,
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Search by model"
-            }
-        )
+        widget=forms.TextInput(attrs={"placeholder": "Search by model"}),
     )
+
 
 class ManufacturerSearchForm(forms.Form):
     name = forms.CharField(
         label="",
         max_length=55,
         required=False,
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Search by name"
-            }
-        )
+        widget=forms.TextInput(attrs={"placeholder": "Search by name"}),
     )

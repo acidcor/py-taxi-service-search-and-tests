@@ -8,18 +8,14 @@ class AdminSiteTests(TestCase):
         self.client = Client()
 
         self.admin_user = get_user_model().objects.create_superuser(
-            username="admin",
-            password="testadmin"
+            username="admin", password="testadmin"
         )
 
         self.client.force_login(self.admin_user)
 
         self.driver = get_user_model().objects.create_user(
-            username="johndoe",
-            password="test123",
-            license_number="ABC12345"
+            username="johndoe", password="test123", license_number="ABC12345"
         )
-
 
     def test_driver_license_listed(self):
         url = reverse("admin:taxi_driver_changelist")
