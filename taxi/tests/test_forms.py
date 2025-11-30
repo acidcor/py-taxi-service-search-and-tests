@@ -39,7 +39,7 @@ class FormsTests(TestCase):
             license_number="ABC12346",
         )
         self.d3 = get_user_model().objects.create(
-            username="nejohndor",
+            username="nejohndoe",
             first_name="Nejohn",
             last_name="Doe",
             license_number="ABC12347",
@@ -84,4 +84,4 @@ class FormsTests(TestCase):
             reverse("taxi:driver-list") + f"?username={search_term}"
         )
         results = response.context["driver_list"]
-        self.assertEqual(results.count(), 2)
+        self.assertEqual(results.count(), 3)
